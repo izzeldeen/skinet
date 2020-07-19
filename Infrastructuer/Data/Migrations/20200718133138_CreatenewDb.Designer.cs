@@ -3,14 +3,16 @@ using Infrastructuer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructuer.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200718133138_CreatenewDb")]
+    partial class CreatenewDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,17 +44,19 @@ namespace Infrastructuer.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("ProductBrand")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProductBrandId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductBrandId");
-
-                    b.HasIndex("ProductTypeId");
 
                     b.ToTable("Products");
                 });
@@ -85,21 +89,6 @@ namespace Infrastructuer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
-                });
-
-            modelBuilder.Entity("Core.Entities.Product", b =>
-                {
-                    b.HasOne("Core.Entities.ProductBrand", "ProductBrand")
-                        .WithMany()
-                        .HasForeignKey("ProductBrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.ProductType", "ProductType")
-                        .WithMany()
-                        .HasForeignKey("ProductTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
