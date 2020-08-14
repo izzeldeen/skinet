@@ -1,0 +1,11 @@
+<div class="container mt-5">
+    <h1>Internal Server Error </h1>
+    <ng-container *ngIf="error">
+        <h5 class="text-danger">Error: {{error.message}}</h5>
+        <p class="text-weight-bold">  refreshing the page will make the exception disappear   </p> 
+        <h5 >Note: if you are seeing this
+             then Angular is not probably responsble for that</h5>
+        Check Network Developing tap
+             <code class="mt-5 text-danger" style="background-color: whitesmoke;" >{{error.details}}</code>
+    </ng-container>
+</div>

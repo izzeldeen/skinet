@@ -1,3 +1,4 @@
+
 <div class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
     <img src="/assets/images/logo.png" style="max-height: 70px;;" alt="logo" class="logo">
     <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;" routerLink="/">
@@ -5,13 +6,14 @@
        [routerLinkActiveOptions]="{exact:true}" >Home</a>
      <a class="p-2" href="/shop" routerLinkActive="active" 
       >Shop</a>
-      <a class="p-2" href="#">Contact</a>
+      <!-- routerLink="/test-error" -->
+      <a class="p-2" href="/test-error">Errors</a>
     </nav>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center fa">
         <a class="position-relative">
-            <i class="fas fa-shopping-cart"></i>
-            <i class="fas fa-plus"></i>
-            <div class="cart-no">5</div>
+            <p style="margin-left: -5rem;">Cart(5)</p>
+            <i class="fa fa-plus"></i>
+           
         </a>
         <a class="btn btn-outline-secondary mr-2" href="#">Login</a>
         <a class="btn btn-outline-secondary mr-3" href="#">Sign up</a>
