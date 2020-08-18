@@ -1,10 +1,14 @@
 using System.Threading.Tasks;
+using API.Controllers;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers
+namespace API.Controller
 {
+    
+
     public class BasketController : BaseApiController
     {
         private readonly IBasketRepository _basketRepository;
@@ -28,6 +32,7 @@ namespace API.Controllers
             return Ok(updatedBasket);
         }
 
+    [HttpPost]
         public async Task DeleteBasket(string id)
         {
           await _basketRepository.DeleteBasketAsync(id);

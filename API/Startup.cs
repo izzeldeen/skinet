@@ -10,6 +10,7 @@ using API.Middleware;
 using API.Extensions;
 using StackExchange.Redis;
 
+
 namespace API
 {
     public class Startup
@@ -35,15 +36,22 @@ namespace API
                 .GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(Configuration);
             });
-             services.AddApplicationServices();
-             services.AddSwaggerDocumntation();
-             services.AddCors(opt => 
+            services.AddApplicationServices();
+            services.AddSwaggerDocumntation();
+           
+            services.AddCors(opt => 
              {
                  opt.AddPolicy("CorsPolicy" , policy => {
                      policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                
                  });
+
+                  
              });
 
+            
+
+ 
 
             
         }
@@ -58,21 +66,11 @@ namespace API
             
 
             app.UseHttpsRedirection();
-              app.UseRouting();
+            app.UseRouting();
             app.UseStaticFiles();
             app.UseCors("CorsPolicy");
             app.UseAuthorization();
-
-            
-            
-
-
             app.UseSwaggerDocumention();
-
-           
-
-          
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
