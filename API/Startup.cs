@@ -9,7 +9,7 @@ using API.Helpers;
 using API.Middleware;
 using API.Extensions;
 using StackExchange.Redis;
-
+using Infrastructuer.Identity;
 
 namespace API
 {
@@ -31,23 +31,25 @@ namespace API
            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddDbContext<StoreContext>(x=> x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+           services.AddDbContext<AppIdentityDbContext>(x=> {
+               x.UseSqlServer(_config.GetConnectionString("IdentityConnection"));
+           });
             services.AddSingleton<IConnectionMultiplexer>(c=> {
                 var Configuration = ConfigurationOptions.Parse(_config
                 .GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(Configuration);
             });
             services.AddApplicationServices();
+            services.AddIdentityServices(_config);
             services.AddSwaggerDocumntation();
-           
+      
             services.AddCors(opt => 
-             {
-                 opt.AddPolicy("CorsPolicy" , policy => {
-                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
-                
-                 });
-
-                  
-             });
+            {
+                opt.AddPolicy("CorsPolicy", policy => 
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
 
             
 
@@ -69,6 +71,7 @@ namespace API
             app.UseRouting();
             app.UseStaticFiles();
             app.UseCors("CorsPolicy");
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwaggerDocumention();
             app.UseEndpoints(endpoints =>

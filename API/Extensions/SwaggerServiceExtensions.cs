@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 namespace API.Extensions
 {
@@ -12,10 +13,10 @@ namespace API.Extensions
         //          c.SwaggerDoc("v1" , new Microsoft.OpenApi.Models.OpenApiInfo
         //           {Title = "SkiNet API" , Version="v1"});
         //      });
-         services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "SkiNet API", Version = "v1" });
-        });
+          services.AddSwaggerGen(c => 
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "SkiNet API", Version = "v1"});
+              });
 
              return services;
 
@@ -24,8 +25,10 @@ namespace API.Extensions
         public static IApplicationBuilder UseSwaggerDocumention(this IApplicationBuilder app)
         {
             app.UseAuthorization();
-            app.UseSwagger();
-            app.UseSwaggerUI(c => {c.SwaggerEndpoint("/swagger/v1/swagger.json","SkiNet API v1");});
+             app.UseSwagger();
+            app.UseSwaggerUI(c => {c
+                .SwaggerEndpoint("/swagger/v1/swagger.json", "SkiNet API v1");});
+
             return app;
 
             
